@@ -1,0 +1,9 @@
+---
+- name: install sklearn
+  pip: name=sklearn state=present executable=pip3
+
+- name: install tensorflow
+  pip: name=tensorflow state=present executable=pip3
+
+- name: install keras
+  pip: name=keras state=present executable=pip3

@@ -1,0 +1,133 @@
+Tensorflow on spot instances with Ansible
+https://medium.com/@kuza55/deep-learning-in-the-cloud-tensorflow-on-ec2-spot-instances-with-ansible-554ef7f59423
+
+Create the keras-vm user to run an AWS EC2 instance
+1. Login to the AWS management console
+https://aws.amazon.com/console/
+
+2. Go to the IAM console
+https://console.aws.amazon.com/iam/home
+
+3. Select Users and click "Add User"
+
+4. Enter the User name as keras-vm
+
+5. Select Programmatic access
+
+6. Click "Next: Permissions"
+
+7. Select Attach existing policies directory and select AmazonEC2FullAccess
+
+8. Click "Next: Review"
+
+9. Click "Create User"
+
+10. Click on "Download .csv"
+
+11. Download the file "credentials.csv" to the keras-on-aws/do_not_checkin directory
+
+Use the ec2-tasks script with alias ec2 to setup AWS
+1. List all tasks
+ec2 -l
+
+2. Get parameters for configure task
+ec2 -h configure
+
+3. Setup AWS configuration
+ec2 configure /vagrant/do_not_checkin/credentials.csv
+aws configure set default.region us-east-2
+
+4. Setup SSH key
+export KEY_NAME=keras-vm
+if [[ ! -f /vagrant/do_not_checkin/$KEY_NAME.pem ]]; then
+    ec2 ckp --name $KEY_NAME > /vagrant/do_not_checkin/$KEY_NAME.pem
+fi
+export ANSIBLE_PRIVATE_KEY_FILE=~/$KEY_NAME.pem
+cp -f /vagrant/do_not_checkin/$KEY_NAME.pem $ANSIBLE_PRIVATE_KEY_FILE
+chmod 400 $ANSIBLE_PRIVATE_KEY_FILE
+
+5. Setup ssh-agent with key
+eval `ssh-agent`
+ssh-add $ANSIBLE_PRIVATE_KEY_FILE
+
+Create an EC2 instance
+1. Get spot price statistics for p2.xlarge GPU instance
+ec2 sps -i p2.xlarge
+
+2. Get spot price history for p2.xlarge
+ec2 sph -i p2.xlarge
+
+3. Create the KERAS security group
+export KERAS_SG=$(ec2 csg)
+
+7. Request a spot instance
+# For a low end t2.micro instance
+# ec2 ri -s $KERAS_SG
+# Deep Learning AMI (Ubuntu)
+ec2 rsi -m ami-f0725c95 -s $KERAS_SG -i p2.xlarge -p YourPrice
+
+8. Display spot requests
+ec2 dsir
+
+9. Display all running instances
+ec2 disr
+
+10. Setup INST (specify InstanceId)
+export INST=
+
+11. Setup ssh connection to the instance
+export IP_INST=$(ec2 get-ip $INST)
+
+12. Add shortcut to login to machine
+storm delete keras
+storm add --id_file $ANSIBLE_PRIVATE_KEY_FILE keras ubuntu@$IP_INST
+
+13. Test login to the instance
+ssh keras exit
+
+Configure machines using Ansible
+1. Setup Ansible
+export ANSIBLE_PY=ansible_python_interpreter=/usr/bin/python3
+# export ANSIBLE_PY=ansible_python_interpreter=/home/ubuntu/anaconda3/bin/python3
+export ANSIBLE_HOST_KEY_CHECKING=False
+export ANSIBLE_ROLES_PATH=/vagrant/playbooks/external-roles
+
+2. Change to the Ansible playbooks directory
+cd /vagrant/playbooks
+
+3. Install roles from Ansible Galaxy
+ansible-galaxy install -r requirements.yml -p $ANSIBLE_ROLES_PATH
+
+4. Lists the hosts using Ansible
+ansible all --list-hosts -i keras,
+
+6. Connect to all hosts
+ansible all -m ping -i keras, -e $ANSIBLE_PY
+
+7 Run a playbook to update the machines (displays UNREACHABLE when rebooting)
+ansible-playbook ubuntu-update.yml -b -i keras, -e $ANSIBLE_PY
+
+8. Install useful utilities
+ansible-playbook cli-setup.yml -b -i keras, -e $ANSIBLE_PY
+
+9. Patch Tensorflow conda setup
+# remove opencv and add seaborn as they are mutually incompatible
+ansible-playbook patch-conda-setup.yml -b -i keras, -e $ANSIBLE_PY
+
+Miscellaneous
+1. Tunnel port for Jupyter notebook
+ec2 tunnel
+
+2. Start tmux
+tmux
+
+3. Activate tensorflow Python 3.6 environment
+source activate tensorflow_p36
+
+4. Start Jupyter notebook
+jupyter notebook --ip localhost --no-browser
+
+5. Open your browser to http://192.168.33.10:8888/
+
+6. Enter the token from step 3 above
+

@@ -1,0 +1,45 @@
+Setup software
+	[X] Use Deep Learning Base AMI (Ubuntu) 
+	[X] Create spot instance with static security group
+	[X] Install software with Ansible
+	[X] Create security group with script
+	[X] Setup storm ssh config
+	[_] Add command: ec2 tunnel $INST_ID
+	[_] Setup rclone config
+	[_] Setup tmuxp
+		: gensim-vm\doc\aws-spot-instance.txt 
+	[_] Activate conda env and run jupyter notebook with tmuxp
+	[_] Install jupyter_contrib_nbextensions
+	[_] Install jupyter vim binding
+	[_] Change prices in code/aws_utils.py to U.S. East 2
+Test software
+	[X] Test Tensorflow with CPU
+	[X] Test Tensorflow with GPU
+	[_] Test Keras with CPU
+	[_] Test Keras with GPU
+
+Copy notebooks
+	[_] Copy notebooks to the AWS VM
+	[_] Copy notebooks from the AWS VM
+		: https://rclone.org/commands/rclone_sync/
+
+How to setup EBS instances and Jupyter notebooks
+https://github.com/PiercingDan/spark-Jupyter-AWS
+
+May need to wait for
+https://github.com/ansible/ansible/issues/16593
+
+- name: Wait for automatic system updates
+  become: yes
+  wait_for: path=/var/lib/dpkg/lock state=absent
+
+Need to create a rclone file like this
+
+ubuntu@tensorflow-aws:/vagrant/playbooks$ cat /home/ubuntu/.config/rclone/rclone.conf
+[keras-vm]
+type = sftp
+host = 192.168.3.22
+user =
+port =
+pass =
+key_file =

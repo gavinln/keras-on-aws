@@ -1,0 +1,10 @@
+*~
+*.pyc
+*.class
+*.swp
+*.log
+*.retry
+*.backup
+.vagrant
+do_not_checkin/
+ansible/roles/

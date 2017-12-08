@@ -1,0 +1,49 @@
+---
+- name: Install git
+  apt: name=git state=installed
+
+- name: Install tree
+  apt: name=tree state=installed
+
+- name: Install ag
+  apt: name=silversearcher-ag state=installed
+
+- name: Install jq
+  apt: name=jq state=installed
+
+- name: Install vim
+  apt: name=vim state=installed
+
+- name: Install autojump
+  apt: name=autojump state=installed
+  register: autojump_status
+
+- name: copy autojump profile
+  copy:
+    src=/usr/share/autojump/autojump.sh
+    dest=/etc/profile.d/autojump.sh
+  when: autojump_status.changed
+
+- name: Setup ipython shortcut (ipy)
+  lineinfile:
+    dest=~/.bashrc
+    line="alias ipy='ipython --colors=NoColor'"
+    state=present
+    insertafter=EOF
+    create=True
+  become_user: ubuntu
+
+  # - name: download awless
+  #   get_url:
+  #     url: https://github.com/wallix/awless/releases/download/{{ awless }}/awless-linux-amd64.tar.gz
+  #     dest: /home/ubuntu/awless-linux-amd64.tar.gz
+  #     owner: ubuntu
+  #     group: ubuntu
+
+  # - name: untar awless
+  #   unarchive:
+  #     src: /home/ubuntu/awless-linux-amd64.tar.gz
+  #     dest: /home/ubuntu
+  #     owner: ubuntu
+  #     group: ubuntu
+
