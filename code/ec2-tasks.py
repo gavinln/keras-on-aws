@@ -2,13 +2,15 @@ from __future__ import print_function
 
 import os
 import sys
-import boto3
 import datetime
 import csv
 import pprint
 import urllib
 import configparser
 from collections import OrderedDict
+
+import boto3
+from botocore.exceptions import ClientError
 
 from IPython import embed
 from invoke import task
@@ -47,6 +49,40 @@ def deep_learning_ami():
 def printPython(obj):
     print(highlight(pprint.pformat(obj), PythonLexer(),
           TerminalFormatter()))
+
+
+def get_default_vpc():
+    ''' gets the default vpc
+
+    returns None if cannot get the default vpc
+    '''
+
+    ec2 = boto3.client('ec2')
+    Filters = [{'Name': 'isDefault', 'Values': ['true']}]
+    desc_vpcs = ec2.describe_vpcs(Filters=Filters)
+    vpcs = desc_vpcs['Vpcs']
+    if len(vpcs) > 0 and vpcs[0]['IsDefault']:
+        return vpcs[0]
+    return None
+
+
+def get_security_group_id(group_name):
+    ''' returns security group id given name
+
+    return None if group_name does not exist
+    '''
+
+    ec2 = boto3.client('ec2')
+    try:
+        response = ec2.describe_security_groups(GroupNames=[group_name])
+        sgs = response['SecurityGroups']
+        for sg in sgs:
+            return sg['GroupId']
+    except ClientError as e:
+        if e.response['Error']['Code'] == 'InvalidGroup.NotFound':
+            return None
+        raise e
+    return None
 
 
 def get_external_ip():
@@ -164,23 +200,29 @@ def get_keyPair(keyPairs, keyName):
 
 @task(name='csg', help={})
 def create_security_group(ctx):
-    ' create security group keras-vm in default vpc '
+    ''' create security group keras-vm in default vpc
 
-    def get_default_vpc(desc_vpcs):
-        vpcs = desc_vpcs['Vpcs']
-        if len(vpcs) > 0 and vpcs[0]['IsDefault']:
-            return vpcs[0]
-        return None
+        returns existing security_group id if exists
+        otherwise creates new security group and returns id
+    '''
+
+    security_group_name = 'keras-vm'
+    sg_id = get_security_group_id(security_group_name)
+    if sg_id:
+        print(sg_id)
+        return
 
     ec2 = boto3.client('ec2')
-    Filters = [{'Name': 'isDefault', 'Values': ['true']}]
-    desc_vpcs = ec2.describe_vpcs(Filters=Filters)
-    default_vpc = get_default_vpc(desc_vpcs)
-    if default_vpc:
+    default_vpc = get_default_vpc()
+    if not default_vpc:
+        print('Cannot find default vpc')
+        return
+
         vpc_id = default_vpc['VpcId']
         description = 'security group for keras-on-aws'
         sg = ec2.create_security_group(
-            Description=description, GroupName='keras-vm', VpcId=vpc_id)
+            Description=description, GroupName=security_group_name,
+            VpcId=vpc_id)
         security_group = boto3.resource('ec2').SecurityGroup(sg['GroupId'])
         external_ip = get_external_ip()
         cidr_ip = external_ip + '/32'
@@ -559,7 +601,4 @@ def start_instances(ctx, inst_id):
 def get_ip(ctx, inst_id):
     ' get ip address '
 
-    ec2 = boto3.client('ec2')
-    output = ec2.describe_instances(InstanceIds=[inst_id])
-    embed(colors='NoColor')
-    # print(get_instance_addr(inst_id))
+    print(get_instance_addr(inst_id))

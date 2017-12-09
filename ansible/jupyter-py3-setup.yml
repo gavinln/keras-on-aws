@@ -1,9 +1,0 @@
----
-- name: install jupyter notebook
-  pip: name=notebook state=present executable=pip3
-
-- name: install jupyter notebook extensions
-  pip: name=jupyter_contrib_nbextensions state=present executable=pip3
-
-- name: install jupyterlab
-  pip: name=jupyterlab state=present executable=pip3

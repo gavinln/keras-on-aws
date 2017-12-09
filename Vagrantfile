@@ -80,8 +80,9 @@ Vagrant.configure(2) do |config|
     machine.vm.provision "ansible_local" do |ansible|
       ansible.install_mode = "pip"
       ansible.version = "2.2.3.0"
-      ansible.provisioning_path = "/vagrant/ansible"
+      ansible.provisioning_path = "/vagrant/ansible/local"
       ansible.galaxy_role_file = "requirements.yml"
+      ansible.galaxy_roles_path = "/vagrant/ansible/external-roles"
       ansible.playbook = "playbook.yml"
     end
   end

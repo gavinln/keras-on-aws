@@ -109,11 +109,11 @@ def get_spot_price_stats(inst_type):
 
     out = [
         'Percentile prices for {}'.format(inst_type),
-        'on-d {:.2f}'.format(get_on_demand_price(inst_type)),
-        'max  {:.2f}'.format(max(sph)),
-        'p90  {:.2f}'.format(get_list_percentile(sph, 90)),
-        'p80  {:.2f}'.format(get_list_percentile(sph, 80)),
-        'mean {:.2f}'.format(sum(sph)/float(len(sph))),
-        'min  {:.2f}'.format(min(sph))
+        'on-demand     {:.2f}'.format(get_on_demand_price(inst_type)),
+        'maximum       {:.2f}'.format(max(sph)),
+        '90 percentile {:.2f}'.format(get_list_percentile(sph, 90)),
+        '80 percentile {:.2f}'.format(get_list_percentile(sph, 80)),
+        'mean          {:.2f}'.format(sum(sph)/float(len(sph))),
+        'mininum       {:.2f}'.format(min(sph))
     ]
     return '\n'.join(out)
