@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: ubuntu
+  tasks:
+      #     - name: Update Tensorflow conda environment
+      #       script: /vagrant/playbooks/update-conda-tensorflow_p36.sh
+
+    - name: Transfer the script
+      copy: src=update-conda-tensorflow_p36.sh dest=/home/ubuntu force=yes mode=0700
+
+    - name: Execute the script
+      command: bash /home/ubuntu/update-conda-tensorflow_p36.sh
+

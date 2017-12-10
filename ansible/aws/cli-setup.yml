@@ -1,0 +1,42 @@
+---
+# Setup various command line utilities
+
+- hosts: all
+  become: true
+  tasks:
+    - name: Install git
+      apt: name=git state=installed
+
+    - name: Install tree
+      apt: name=tree state=installed
+
+    - name: Install ag
+      apt: name=silversearcher-ag state=installed
+
+    - name: Install jq
+      apt: name=jq state=installed
+
+    - name: Install vim
+      apt: name=vim state=installed
+
+    - name: Install unzip
+      apt: name=unzip state=installed
+
+    - name: Install htop
+      apt: name=htop state=installed
+
+    - name: Install python3-pip
+      apt: name=python3-pip state=installed
+
+    - name: install tmuxp
+      pip: name=tmuxp state=present executable=pip3
+
+    - name: Setup ipython shortcut (ipy)
+      lineinfile:
+        dest=~/.bashrc
+        line="alias ipy='ipython --colors=NoColor'"
+        state=present
+        insertafter=EOF
+        create=True
+      become_user: ubuntu
+

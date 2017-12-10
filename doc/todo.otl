@@ -4,8 +4,9 @@ Setup software
 	[X] Install software with Ansible
 	[X] Create security group with script
 	[X] Setup storm ssh config
-	[_] Add command: ec2 tunnel $INST_ID
+	[X] Add command: ec2 tunnel $INST_ID
 	[_] Setup rclone config
+	[_] Instead of using scp use rclone and exclude the checkpoints dir
 	[_] Setup tmuxp
 		: gensim-vm\doc\aws-spot-instance.txt 
 	[_] Activate conda env and run jupyter notebook with tmuxp

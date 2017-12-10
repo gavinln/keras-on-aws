@@ -16,8 +16,8 @@
     - stefangweichinger.rclone
 
   tasks:
-    - include: init_setup.yml
-    - include: cli_setup.yml
+    - include: init-setup.yml
+    - include: cli-setup.yml
     - include: py3-setup.yml
     - include: awscli-setup.yml
     - include: jupyter-py3-setup.yml

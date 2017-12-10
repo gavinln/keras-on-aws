@@ -78,10 +78,10 @@ ec2 dsir
 ec2 disr
 
 10. Setup INST (specify InstanceId)
-export INST=
+export INST_ID=
 
 11. Setup ssh connection to the instance
-export IP_INST=$(ec2 get-ip $INST)
+export IP_INST=$(ec2 get-ip $INST_ID)
 
 12. Add shortcut to login to machine
 storm delete keras
@@ -94,44 +94,51 @@ Configure machines using Ansible
 1. Setup Ansible
 export ANSIBLE_PY=ansible_python_interpreter=$(which python3)
 export ANSIBLE_HOST_KEY_CHECKING=False
-export ANSIBLE_ROLES_PATH=/vagrant/playbooks/external-roles
+export ANSIBLE_ROLES_PATH=/vagrant/ansible/external-roles
 
 2. Change to the Ansible playbooks directory
-cd /vagrant/playbooks
+cd /vagrant/ansible/aws
 
 3. Install roles from Ansible Galaxy
 ansible-galaxy install -r requirements.yml -p $ANSIBLE_ROLES_PATH
 
-4. Lists the hosts using Ansible
+4. Lists the hosts using Ansible (optional)
 ansible all --list-hosts -i keras,
 
-6. Connect to all hosts
+6. Connect to all hosts (optional)
 ansible all -m ping -i keras, -e $ANSIBLE_PY
 
 7 Run a playbook to update the machines (displays UNREACHABLE when rebooting)
 ansible-playbook ubuntu-update.yml -b -i keras, -e $ANSIBLE_PY
 
-8. Install useful utilities
+8. Repeat previous step until it no longer displayes UNREACHABLE
+
+9. Install useful utilities
 ansible-playbook cli-setup.yml -b -i keras, -e $ANSIBLE_PY
 
 9. Patch Tensorflow conda setup
 # remove opencv and add seaborn as they are mutually incompatible
 ansible-playbook patch-conda-setup.yml -b -i keras, -e $ANSIBLE_PY
 
+Run the Jupyter notebook
+1. Copy the code
+# scp -r /vagrant/code/* keras:~/code
+rsync -avz --exclude '.ipynb_checkpoints' /vagrant/code keras:~
+
 Miscellaneous
 1. Tunnel port for Jupyter notebook
-ec2 tunnel
+ec2 tunnel $INST_ID
 
-2. Start tmux
+2. Change to the code directory
+cd ~/code
+
+3. Start tmux
 tmux
 
-3. Activate tensorflow Python 3.6 environment
-source activate tensorflow_p36
-
-4. Start Jupyter notebook
-jupyter notebook --ip localhost --no-browser
+4. Start Jupyter notebooks
+bash jpy-notebook.sh
 
 5. Open your browser to http://192.168.33.10:8888/
 
-6. Enter the token from step 3 above
+6. Enter the token from step where Jupyter is started
 

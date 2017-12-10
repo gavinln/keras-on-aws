@@ -374,14 +374,14 @@ def rclone_init(ctx, inst_id):
         rclone_conf = out[-1]
         config = configparser.ConfigParser()
         config.read(rclone_conf)
-        for section in config.sections():
-            config_map = get_rclone_sftp(ip_inst, 'ubuntu', id_file)
-            if section == 'keras':
-                # may need to do something different here
-                config_map = get_config_parser_section(config, section)
-                set_config_parser_section(config, section, config_map)
-            else:
-                set_config_parser_section(config, section, config_map)
+        # for section in config.sections():
+        #     config_map = get_rclone_sftp(ip_inst, 'ubuntu', id_file)
+        #     if section == 'keras':
+        #         # may need to do something different here
+        #         config_map = get_config_parser_section(config, section)
+        #         set_config_parser_section(config, section, config_map)
+        #     else:
+        #         set_config_parser_section(config, section, config_map)
         with open(rclone_conf, 'w') as f:
             config.write(f)
     else:
@@ -391,8 +391,8 @@ def rclone_init(ctx, inst_id):
 @task(name='tunnel', help={'inst-id': 'instance id'})
 def tunnel(ctx, inst_id):
     ' tunnel to instance redirecting port 8888 '
-    addr = get_instance_addr(inst_id)
-    cmd = 'ssh -L 0.0.0.0:8888:localhost:8888 ubuntu@{}'.format(addr)
+    # addr = get_instance_addr(inst_id)
+    cmd = 'ssh -L 0.0.0.0:8888:localhost:8888 keras'
     ctx.run(cmd, pty=True)
 
 

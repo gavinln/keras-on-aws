@@ -1,0 +1,9 @@
+---
+# install ntp to synchronize time
+ - src: geerlingguy.ntp
+
+# install docker on ubuntu
+ - src: angstwad.docker_ubuntu
+
+# install role for conda environments
+ - src: andrewrothstein.conda-env
