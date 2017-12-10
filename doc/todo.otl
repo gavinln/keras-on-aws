@@ -29,6 +29,8 @@ Jupyter notebooks
 	[_] Install jupyter vim binding
 	[_] Change prices in code/aws_utils.py to U.S. East 2
 
+Investigate Keras data sets
+https://keras.io/datasets/
 
 How to setup EBS instances and Jupyter notebooks
 https://github.com/PiercingDan/spark-Jupyter-AWS
