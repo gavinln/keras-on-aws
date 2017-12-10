@@ -1,3 +1,14 @@
+Test software
+	[X] Test Tensorflow with CPU
+	[X] Test Tensorflow with GPU
+	[X] Test Keras with CPU
+	[X] Test Keras with GPU
+
+Copy notebooks
+	[X] Copy notebooks to the AWS VM
+	[X] Copy notebooks from the AWS VM
+	[X] Use rsync to copy code to aws and synchronize to local
+
 Setup software
 	[X] Use Deep Learning Base AMI (Ubuntu) 
 	[X] Create spot instance with static security group
@@ -7,22 +18,17 @@ Setup software
 	[X] Add command: ec2 tunnel $INST_ID
 	[_] Setup rclone config
 	[_] Instead of using scp use rclone and exclude the checkpoints dir
+
+Jupyter notebooks
+	[_] Document convolution notebook based on tutorial
+		: https://elitedatascience.com/keras-tutorial-deep-learning-in-python
 	[_] Setup tmuxp
 		: gensim-vm\doc\aws-spot-instance.txt 
 	[_] Activate conda env and run jupyter notebook with tmuxp
 	[_] Install jupyter_contrib_nbextensions
 	[_] Install jupyter vim binding
 	[_] Change prices in code/aws_utils.py to U.S. East 2
-Test software
-	[X] Test Tensorflow with CPU
-	[X] Test Tensorflow with GPU
-	[_] Test Keras with CPU
-	[_] Test Keras with GPU
 
-Copy notebooks
-	[_] Copy notebooks to the AWS VM
-	[_] Copy notebooks from the AWS VM
-		: https://rclone.org/commands/rclone_sync/
 
 How to setup EBS instances and Jupyter notebooks
 https://github.com/PiercingDan/spark-Jupyter-AWS

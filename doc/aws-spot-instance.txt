@@ -142,8 +142,15 @@ bash jpy-notebook.sh
 
 6. Enter the token from step where Jupyter is started
 
+Monitoring GPU
+https://github.com/mountassir/gmonitor - 45 stars
+https://github.com/Syllo/nvtop - 9 stars
+
+
+k
+
 Saving changes to the local machine
-1. Copy changes from aws to the local machine
-rsync -avz --exclude '.ipynb_checkpoints' keras:~/code /vagrant
+1. Copy changes from aws to the local machine every 60 seconds
+watch -n 60 rsync -avz --exclude '.ipynb_checkpoints' keras:~/code /vagrant
 
 
