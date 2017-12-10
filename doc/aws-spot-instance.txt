@@ -142,3 +142,8 @@ bash jpy-notebook.sh
 
 6. Enter the token from step where Jupyter is started
 
+Saving changes to the local machine
+1. Copy changes from aws to the local machine
+rsync -avz --exclude '.ipynb_checkpoints' keras:~/code /vagrant
+
+

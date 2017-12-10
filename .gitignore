@@ -6,5 +6,6 @@
 *.retry
 *.backup
 .vagrant
+.ipynb_checkpoints
 do_not_checkin/
 ansible/external-roles/
