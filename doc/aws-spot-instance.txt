@@ -122,35 +122,34 @@ ansible-playbook patch-conda-setup.yml -b -i keras, -e $ANSIBLE_PY
 
 Run the Jupyter notebook
 1. Copy the code
-# scp -r /vagrant/code/* keras:~/code
 rsync -avz --exclude '.ipynb_checkpoints' /vagrant/code keras:~
 
-Miscellaneous
-1. Tunnel port for Jupyter notebook
+2. Tunnel port for Jupyter notebook
 ec2 tunnel $INST_ID
 
-2. Change to the code directory
+3. Change to the code directory
 cd ~/code
 
-3. Start tmux
+4. Start tmux
 tmux
 
-4. Start Jupyter notebooks
+5. Start Jupyter notebooks
 bash jpy-notebook.sh
 
-5. Open your browser to http://192.168.33.10:8888/
+6. Open your browser to http://192.168.33.10:8888/
 
-6. Enter the token from step where Jupyter is started
+7. Enter the token from step where Jupyter is started
+
+Saving changes to the local machine
+1. Copy changes from aws to the local machine every 60 seconds
+watch -n 60 rsync -avz --exclude '.ipynb_checkpoints' keras:~/code /vagrant
 
 Monitoring GPU
 https://github.com/mountassir/gmonitor - 45 stars
 https://github.com/Syllo/nvtop - 9 stars
 
+SSH productivity
+http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html
 
-k
-
-Saving changes to the local machine
-1. Copy changes from aws to the local machine every 60 seconds
-watch -n 60 rsync -avz --exclude '.ipynb_checkpoints' keras:~/code /vagrant
 
 
