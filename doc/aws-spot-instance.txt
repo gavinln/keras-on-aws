@@ -56,34 +56,31 @@ eval `ssh-agent`
 ssh-add $ANSIBLE_PRIVATE_KEY_FILE
 
 Create an EC2 instance
-1. Get spot price statistics for p2.xlarge GPU instance
-ec2 sps -i p2.xlarge
-
-2. Get spot price history for p2.xlarge
-ec2 sph -i p2.xlarge
-
-3. Create the KERAS security group
+1. Create the KERAS security group
 export KERAS_SG=$(ec2 csg)
 
-7. Request a spot instance
+2. Get spot price statistics for p2.xlarge GPU instance
+ec2 sps -i p2.xlarge
+
+3. Request a spot instance
 # For a low end t2.micro instance
 # ec2 ri -s $KERAS_SG
 # Deep Learning AMI (Ubuntu)
 ec2 rsi -m ami-f0725c95 -s $KERAS_SG -i p2.xlarge -p YourPrice
 
-8. Display spot requests (optional)
+4. Display spot requests (optional)
 ec2 dsir
 
-9. Display all running instances
+5. Display all running instances
 ec2 disr
 
-10. Setup INST (specify InstanceId)
+6. Setup INST (specify InstanceId)
 export INST_ID=
 
-11. Setup ssh connection to the instance
+7. Setup ssh connection to the instance
 export IP_INST=$(ec2 get-ip $INST_ID)
 
-12. Add shortcut to login to machine
+8. Add shortcut to login to machine
 storm delete keras
 storm add --id_file $ANSIBLE_PRIVATE_KEY_FILE keras ubuntu@$IP_INST
 
@@ -117,7 +114,6 @@ ansible-playbook ubuntu-update.yml -b -i keras, -e $ANSIBLE_PY
 ansible-playbook cli-setup.yml -b -i keras, -e $ANSIBLE_PY
 
 9. Patch Tensorflow conda setup
-# remove opencv and add seaborn as they are mutually incompatible
 ansible-playbook patch-conda-setup.yml -b -i keras, -e $ANSIBLE_PY
 
 Run the Jupyter notebook
