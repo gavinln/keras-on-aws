@@ -77,12 +77,13 @@ ec2 disr
 6. Setup INST (specify InstanceId)
 export INST_ID=
 
-7. Setup ssh connection to the instance
-export IP_INST=$(ec2 get-ip $INST_ID)
+# 7. Setup ssh connection to the instance
+# export IP_INST=$(ec2 get-ip $INST_ID)
 
 8. Add shortcut to login to machine
-storm delete keras
-storm add --id_file $ANSIBLE_PRIVATE_KEY_FILE keras ubuntu@$IP_INST
+# storm delete keras
+# storm add --id_file $ANSIBLE_PRIVATE_KEY_FILE keras ubuntu@$IP_INST
+ec2 ssh-init $INST_ID
 
 13. Test login to the instance
 ssh keras exit
@@ -146,6 +147,3 @@ https://github.com/Syllo/nvtop - 9 stars
 
 SSH productivity
 http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html
-
-
-
