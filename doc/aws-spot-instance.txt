@@ -77,15 +77,10 @@ ec2 disr
 6. Setup INST (specify InstanceId)
 export INST_ID=
 
-# 7. Setup ssh connection to the instance
-# export IP_INST=$(ec2 get-ip $INST_ID)
-
-8. Add shortcut to login to machine
-# storm delete keras
-# storm add --id_file $ANSIBLE_PRIVATE_KEY_FILE keras ubuntu@$IP_INST
+7. Add shortcut to login to machine
 ec2 ssh-init $INST_ID
 
-13. Test login to the instance
+8. Test login to the instance
 ssh keras exit
 
 Configure machines using Ansible
@@ -127,6 +122,7 @@ ec2 tunnel $INST_ID
 3. Change to the code directory
 cd ~/code
 
+# replace the next two commands by tmuxp
 4. Start tmux
 tmux
 

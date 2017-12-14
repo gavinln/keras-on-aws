@@ -28,6 +28,8 @@ Jupyter notebooks
 	[_] Install jupyter_contrib_nbextensions
 	[_] Install jupyter vim binding
 	[_] Change prices in code/aws_utils.py to U.S. East 2
+	[_] Investigate keras callback tqdm
+	: https://github.com/bstriner/keras-tqdm
 
 Investigate Keras data sets
 https://keras.io/datasets/
