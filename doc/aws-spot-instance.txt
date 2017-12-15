@@ -120,14 +120,14 @@ rsync -avz --exclude '.ipynb_checkpoints' /vagrant/code keras:~
 ec2 tunnel $INST_ID
 
 3. Change to the code directory
-cd ~/code
+# cd ~/code
 
 # replace the next two commands by tmuxp
 4. Start tmux
-tmux
+tmuxp load ~/code/tmux-jpy-notebook.yml
 
 5. Start Jupyter notebooks
-bash jpy-notebook.sh
+# bash jpy-notebook.sh
 
 6. Open your browser to http://192.168.33.10:8888/
 

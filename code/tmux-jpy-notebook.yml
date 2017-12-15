@@ -1,0 +1,9 @@
+session_name: 2-pane-split
+windows:
+- window_name: jupyter notebook
+  layout: even-vertical
+  shell_command_before:
+    - cd ~/code  # run as a first command in all panes
+  panes:
+    - bash jpy-notebook.sh
+    - echo "started jupyter notebook"
