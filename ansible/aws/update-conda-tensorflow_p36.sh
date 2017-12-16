@@ -11,6 +11,6 @@ pip install keras-tqdm
 pip install jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user
 cd $(jupyter --data-dir)/nbextensions
-if [[! -d vim_binding ]]; then
+if [[ ! -d vim_binding ]]; then
     git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
 fi

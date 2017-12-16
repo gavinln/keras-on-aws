@@ -119,19 +119,12 @@ rsync -avz --exclude '.ipynb_checkpoints' /vagrant/code keras:~
 2. Tunnel port for Jupyter notebook
 ec2 tunnel $INST_ID
 
-3. Change to the code directory
-# cd ~/code
-
-# replace the next two commands by tmuxp
-4. Start tmux
+3. Start tmux & Jupyter notebook
 tmuxp load ~/code/tmux-jpy-notebook.yml
 
-5. Start Jupyter notebooks
-# bash jpy-notebook.sh
+4. Open your browser to http://192.168.33.10:8888/
 
-6. Open your browser to http://192.168.33.10:8888/
-
-7. Enter the token from step where Jupyter is started
+5. Enter the token from step where Jupyter is started
 
 Saving changes to the local machine
 1. Copy changes from aws to the local machine every 60 seconds

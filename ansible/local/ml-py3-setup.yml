@@ -1,0 +1,9 @@
+---
+- name: install theano
+  pip: name=theano state=present executable=pip3
+
+- name: install sklearn
+  pip: name=sklearn state=present executable=pip3
+
+- name: install Tensorflow
+  pip: name=tensorflow state=present executable=pip3
