@@ -17,7 +17,7 @@ jupyter nbextension disable nbpresent --py
 jupyter serverextension disable nbpresent --py
 
 # enable hide_input_all extension to hide/show all code cells
-jupyter-nbextension enable hide_input_all/main --py
+jupyter-nbextension enable hide_input_all/main
 
 # install RISE for slideshows
 pip install RISE
