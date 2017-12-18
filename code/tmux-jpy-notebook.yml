@@ -4,6 +4,8 @@ windows:
   layout: even-vertical
   shell_command_before:
     - cd ~/code  # run as a first command in all panes
+    - source /home/ubuntu/anaconda3/bin/activate tensorflow_p36
   panes:
     - bash jpy-notebook.sh
-    - echo "started jupyter notebook"
+    # - bash jpy-slides.sh
+    - echo "start jupyter notebooks"

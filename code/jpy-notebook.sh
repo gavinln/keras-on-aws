@@ -15,4 +15,4 @@ source deactivate
 # NOTEBOOK_DIR=$DIR/../notebooks
 # setup the address to last address
 # IP_ADDR=$(hostname -I | awk '{ print $NF }')
-# IP_ADDR=0.0.0.0
+# jupyter nbconvert --to slides --post serve --ServePostProcessor.port=8888 ~/code/notebooks/keras/06-Sentiment_analysis_movie_reviews.ipynb

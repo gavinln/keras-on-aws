@@ -80,7 +80,7 @@ export INST_ID=
 7. Add shortcut to login to machine
 ec2 ssh-init $INST_ID
 
-8. Test login to the instance
+8. Test login to the instance. Repeat until instance starts.
 ssh keras exit
 
 Configure machines using Ansible
