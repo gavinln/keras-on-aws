@@ -8,12 +8,21 @@ pip install sklearn
 pip install seaborn
 pip install keras-tqdm
 
+# install jupyter notebook extensions
 pip install jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user
 
 # disable nbpresent as it does not work correctly
 jupyter nbextension disable nbpresent --py
 jupyter serverextension disable nbpresent --py
+
+# enable hide_input_all extension to hide/show all code cells
+jupyter-nbextension enable hide_input_all/main --py
+
+# install RISE for slideshows
+pip install RISE
+jupyter-nbextension install rise --py --sys-prefix
+jupyter-nbextension enable rise --py --sys-prefix
 
 # install vim bindings
 cd $(jupyter --data-dir)/nbextensions
