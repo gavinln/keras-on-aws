@@ -13,11 +13,11 @@ pip install jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user
 
 # disable nbpresent as it does not work correctly
-jupyter nbextension disable nbpresent --py
-jupyter serverextension disable nbpresent --py
+jupyter-nbextension disable nbpresent --py --sys-prefix
+# jupyter serverextension disable nbpresent --py
 
 # enable hide_input_all extension to hide/show all code cells
-jupyter-nbextension enable hide_input_all/main
+jupyter-nbextension enable hide_input_all/main --py --sys-prefix
 
 # install RISE for slideshows
 pip install RISE

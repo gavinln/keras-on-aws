@@ -113,7 +113,7 @@ ansible-playbook cli-setup.yml -b -i keras, -e $ANSIBLE_PY
 ansible-playbook patch-conda-setup.yml -b -i keras, -e $ANSIBLE_PY
 
 Run the Jupyter notebook
-1. Copy the code
+1. Copy the code to the AWS machine
 rsync -avz --exclude '.ipynb_checkpoints' /vagrant/code keras:~
 
 2. Tunnel port for Jupyter notebook
