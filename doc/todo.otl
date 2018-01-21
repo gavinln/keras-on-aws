@@ -22,11 +22,11 @@ Setup software
 Jupyter notebooks
 	[_] Document convolution notebook based on tutorial
 		: https://elitedatascience.com/keras-tutorial-deep-learning-in-python
-	[_] Setup tmuxp
+	[X] Setup tmuxp
 		: gensim-vm\doc\aws-spot-instance.txt 
-	[_] Activate conda env and run jupyter notebook with tmuxp
-	[_] Install jupyter_contrib_nbextensions
-	[_] Install jupyter vim binding
+	[X] Activate conda env and run jupyter notebook with tmuxp
+	[X] Install jupyter_contrib_nbextensions
+	[X] Install jupyter vim binding
 	[_] Change prices in code/aws_utils.py to U.S. East 2
 	[_] Investigate keras callback tqdm
 	: https://github.com/bstriner/keras-tqdm
@@ -36,6 +36,7 @@ https://keras.io/datasets/
 
 Natural language processing
 https://www.cs.bgu.ac.il/~elhadad/nlp18.html
+https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/
 
 Boston housing
 https://machinelearningmastery.com/regression-tutorial-keras-deep-learning-library-python/

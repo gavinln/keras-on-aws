@@ -21,6 +21,6 @@
     - include: py3-setup.yml
     - include: awscli-setup.yml
     - include: jupyter-py3-setup.yml
-    - include: math-py3-setup.yml
-    - include: ml-py3-setup.yml
+#     - include: math-py3-setup.yml
+#     - include: ml-py3-setup.yml
 
