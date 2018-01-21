@@ -104,7 +104,8 @@ ansible all -m ping -i keras, -e $ANSIBLE_PY
 7 Run a playbook to update the machines (displays UNREACHABLE when rebooting)
 ansible-playbook ubuntu-update.yml -b -i keras, -e $ANSIBLE_PY
 
-8. Repeat previous step until it no longer displayes UNREACHABLE
+8. Repeat previous step until it no longer displayes UNREACHABLE and the Unable
+   to lock administration directory is not displayed
 
 9. Install useful utilities
 ansible-playbook cli-setup.yml -b -i keras, -e $ANSIBLE_PY
