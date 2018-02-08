@@ -5,6 +5,9 @@
 - name: Install unzip
   apt: name=unzip state=installed
 
+- name: Install neovim
+  apt: name=neovim state=installed
+
 - name: install python dev
   apt: name=python-dev state=installed
 
