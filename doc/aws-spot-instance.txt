@@ -1,60 +1,4 @@
-Tensorflow on spot instances with Ansible
-https://medium.com/@kuza55/deep-learning-in-the-cloud-tensorflow-on-ec2-spot-instances-with-ansible-554ef7f59423
-
-Create the keras-vm user to run an AWS EC2 instance
-1. Login to the AWS management console
-https://aws.amazon.com/console/
-
-2. Go to the IAM console
-https://console.aws.amazon.com/iam/home
-
-3. Select Users and click "Add User"
-
-4. Enter the User name as keras-vm
-
-5. Select Programmatic access
-
-6. Click "Next: Permissions"
-
-7. Select Attach existing policies directory and select AmazonEC2FullAccess
-
-8. Click "Next: Review"
-
-9. Click "Create User"
-
-10. Click on "Download .csv"
-
-11. Download the file "credentials.csv" to the keras-on-aws/do_not_checkin directory
-
 Use the ec2-tasks script with alias ec2 to setup AWS
-1. List all tasks (optional)
-ec2 -l
-
-2. Get parameters for configure task (optional)
-ec2 -h configure
-
-3. Setup AWS configuration
-ec2 configure /vagrant/do_not_checkin/credentials.csv
-
-4. Set AWS default region
-aws configure set default.region us-east-2
-
-5. Display AWS identity (optional)
-aws sts get-caller-identity
-
-6. Setup SSH key
-export KEY_NAME=keras-vm
-if [[ ! -f /vagrant/do_not_checkin/$KEY_NAME.pem ]]; then
-    ec2 ckp --name $KEY_NAME > /vagrant/do_not_checkin/$KEY_NAME.pem
-fi
-export ANSIBLE_PRIVATE_KEY_FILE=~/$KEY_NAME.pem
-cp -f /vagrant/do_not_checkin/$KEY_NAME.pem $ANSIBLE_PRIVATE_KEY_FILE
-chmod 400 $ANSIBLE_PRIVATE_KEY_FILE
-
-7. Setup ssh-agent with key
-eval `ssh-agent`
-ssh-add $ANSIBLE_PRIVATE_KEY_FILE
-
 Create an EC2 instance
 1. Create the KERAS security group
 export KERAS_SG=$(ec2 csg)
@@ -63,8 +7,6 @@ export KERAS_SG=$(ec2 csg)
 ec2 sps -i p2.xlarge
 
 3. Request a spot instance
-# For a low end t2.micro instance
-# ec2 ri -s $KERAS_SG
 # Deep Learning AMI (Ubuntu)
 ec2 rsi -m ami-f0725c95 -s $KERAS_SG -i p2.xlarge -p YourPrice
 
