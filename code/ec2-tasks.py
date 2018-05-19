@@ -440,7 +440,7 @@ def request_spot_instances(
               "Ebs": {{
                 "DeleteOnTermination": true,
                 "VolumeType": "gp2",
-                "VolumeSize": 64
+                "VolumeSize": 96
               }}
             }}
           ]

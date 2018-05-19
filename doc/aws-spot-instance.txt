@@ -8,7 +8,7 @@ ec2 sps -i p2.xlarge
 
 3. Request a spot instance
 # Deep Learning AMI (Ubuntu)
-ec2 rsi -m ami-f0725c95 -s $KERAS_SG -i p2.xlarge -p YourPrice
+ec2 rsi -m ami-e4f4c981 -s $KERAS_SG -i p2.xlarge -p YourPrice
 
 4. Display spot requests (optional)
 ec2 dsir
