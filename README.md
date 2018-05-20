@@ -57,7 +57,7 @@ work on Windows, Mac and Linux operating systems.
     ```
 
 
-## [3. Setup the keras-vm user on AWS](doc/setup-keras-user.md )
+## [3. Setup the keras-vm user on AWS](doc/setup-keras-user.md)
 
 ## 4. Setup ssh key
 
@@ -115,6 +115,26 @@ work on Windows, Mac and Linux operating systems.
     eval `ssh-agent`
     ssh-add $ANSIBLE_PRIVATE_KEY_FILE
     ```
+
+## [5. Run EC2 instance](doc/aws-spot-instance.txt)
+
+## 6. Setup fastai code
+
+1. Change to the root directory
+cd ~
+
+2. Clone the fastai code
+git clone https://github.com/fastai/fastai.git
+
+3. Change to the fastai code directory
+cd fastai
+
+4. Create the conda gpu environment
+conda env create -f environment.yml
+
+5. Call this is needed - jupyter notebook not starting up
+jupyter notebook --generate-config
+
 
 ## Requirements
 
