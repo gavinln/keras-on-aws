@@ -120,8 +120,8 @@ work on Windows, Mac and Linux operating systems.
 
 ## 6. Setup fastai code
 
-1. Change to the root directory
-cd ~
+1. Connect to the AWS machine
+ec2 tunnel $INST_ID
 
 2. Clone the fastai code
 git clone https://github.com/fastai/fastai.git
@@ -132,8 +132,14 @@ cd fastai
 4. Create the conda gpu environment
 conda env create -f environment.yml
 
-5. Call this is needed - jupyter notebook not starting up
+5. Call this if needed - jupyter notebook not starting up
 jupyter notebook --generate-config
+
+6. Activate the environmnet
+source activate fastai
+
+7. Start the jupyter notebook
+jupyter notebook
 
 
 ## Requirements
